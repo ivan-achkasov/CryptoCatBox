@@ -1,0 +1,7 @@
+logging:
+  level:
+    root: INFO
+
+binance:
+  data_load:
+    delay: 20000

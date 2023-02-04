@@ -3,6 +3,7 @@ package criptocatbox.service.impl
 import criptocatbox.domain.Currency
 import criptocatbox.domain.CurrencyPair
 import criptocatbox.domain.SingleExchangeChain
+import criptocatbox.service.arbitrage.ChainsCreator
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

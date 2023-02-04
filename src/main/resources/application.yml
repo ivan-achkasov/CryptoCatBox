@@ -2,6 +2,25 @@ logging:
   level:
     root: INFO
 
+server:
+  port: 8090
+
+pancakeswap:
+  api:
+    base_url: https://api.pancakeswap.info
+    prefix: /api/v2
+    top_pairs: /pairs
+
+whitebit:
+  api:
+    base_url: https://whitebit.com
+    prefix: /api/v4
+    tickers: /public/ticker
+
 binance:
+  api:
+    schema_host: https://api3.binance.com
+    prefix: /api/v3
+    pairs_price: /ticker/price
   data_load:
     delay: 20000

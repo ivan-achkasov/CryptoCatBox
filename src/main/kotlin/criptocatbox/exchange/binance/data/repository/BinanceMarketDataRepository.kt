@@ -1,0 +1,7 @@
+package criptocatbox.exchange.binance.data.repository
+
+import criptocatbox.exchange.common.data.repository.AbstractMarketDataHeapRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+class BinanceMarketDataRepository: AbstractMarketDataHeapRepository()

@@ -304,6 +304,7 @@ enum class Currency {
     YFII,
     ARPA,
     MASK,
+    DEFI,
     LOKA,
     PROS,
     PIVX,
@@ -336,6 +337,7 @@ enum class Currency {
     PERP,
     LUNA,
     WBTC,
+    WBNB,
     TORN,
     LOOM,
     AION,
@@ -403,6 +405,12 @@ enum class Currency {
     TRY,
     AUD,
     BRL;
+
+    companion object {
+        fun customValueOf(stringValue: String): Currency {
+            return if(stringValue == "1INCH") ONE_INCH else valueOf(stringValue)
+        }
+    }
 
     override fun toString(): String {
         if(this == ONE_INCH)

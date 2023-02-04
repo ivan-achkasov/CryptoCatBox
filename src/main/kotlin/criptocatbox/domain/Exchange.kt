@@ -1,5 +1,7 @@
 package criptocatbox.domain
 
 enum class Exchange {
-    BINANCE
+    BINANCE,
+    WHITE_BIT,
+    PANCAKE_SWAP
 }

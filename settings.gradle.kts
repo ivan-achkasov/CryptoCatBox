@@ -1,1 +1,6 @@
-rootProject.name = "demo"
+rootProject.name = "CryptoCatBox"
+
+include("binance")
+include("common")
+include("whitebit")
+include("pancakeswap")

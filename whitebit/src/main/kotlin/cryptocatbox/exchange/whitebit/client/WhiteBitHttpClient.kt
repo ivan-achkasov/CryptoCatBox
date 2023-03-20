@@ -1,11 +1,9 @@
 package cryptocatbox.exchange.whitebit.client
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import cryptocatbox.exchange.whitebit.client.dto.TickerPairData
 import cryptocatbox.exchange.whitebit.client.dto.TickersDto
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service

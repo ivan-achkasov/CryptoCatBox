@@ -2,7 +2,7 @@ package cryptocatbox.common.domain
 
 data class CurrencyPair(val buy: Currency, val sell: Currency) {
     init {
-        if(buy == sell) {
+        if (buy == sell) {
             throw IllegalArgumentException("Invalid pair, the same currencies.")
         }
     }
@@ -13,6 +13,10 @@ data class CurrencyPair(val buy: Currency, val sell: Currency) {
 
     fun toString(delimiter: Char): String {
         return "$buy$delimiter$sell"
+    }
+
+    override fun toString(): String {
+        return "$buy$sell"
     }
 
     override fun hashCode(): Int {

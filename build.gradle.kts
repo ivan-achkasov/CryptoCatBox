@@ -1,50 +1,64 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-    id("org.springframework.boot") version "2.7.2"
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
+val springVersion by extra { "6.0.6" }
+val springDataVersion by extra { "3.0.3" }
+val springBootVersion by extra { "3.0.4" }
+val jacksonVersion by extra { "2.14.2" }
+val slf4jVersion by extra { "2.0.6" }
+val okHttpVersion by extra { "4.10.0" }
+val binanceVersion by extra { "1.12.0" }
+val liquibaseVersion by extra { "4.20.0" }
+val coroutinesVersion by extra { "1.6.4" }
+val postgresqlVersion by extra { "42.5.4" }
+val h2Version by extra { "2.1.214" }
+
+val jUnitVersion by extra { "5.9.2" }
+val mockVersion by extra { "1.12.4" }
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 }
 
-group = "cryptocatbox"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+plugins {
+    id("org.springframework.boot") version "2.7.4" apply false
+    id("io.spring.dependency-management") version "1.1.0" apply false
+    kotlin("jvm") version "1.6.21" apply false
+    kotlin("plugin.spring") version "1.6.21" apply false
+}
+
+allprojects {
+    group = "cryptocatbox"
+    version = "0.0.1-SNAPSHOT"
+
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "17"
+        }
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+}
 
 subprojects {
     repositories {
         mavenCentral()
     }
 
-    apply(plugin = "kotlin")
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation(project(":common"))
-    implementation(project(":binance"))
-
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.mockk:mockk:1.12.4")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+    apply {
+        plugin("io.spring.dependency-management")
     }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

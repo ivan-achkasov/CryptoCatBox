@@ -1,3 +1,6 @@
+val springVersion: String by rootProject.extra
+val jacksonVersion: String by rootProject.extra
+
 plugins {
     kotlin("jvm")
 }
@@ -5,9 +8,7 @@ plugins {
 dependencies {
     implementation(project(":common"))
 
-    implementation("io.github.binance:binance-connector-java:1.8.0")
-
-    implementation("org.springframework:spring-context:5.3.22")
-    implementation("org.springframework:spring-web:5.3.22")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+    implementation("org.springframework:spring-context:$springVersion")
+    implementation("org.springframework:spring-web:$springVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 }

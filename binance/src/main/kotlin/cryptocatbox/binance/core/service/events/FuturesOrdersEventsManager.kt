@@ -72,6 +72,7 @@ class FuturesOrdersEventsManager(
                 val connectionToClose = currentConnection
                 val listenKey = httpClient.getListenKey()
                 currentConnection = webSocket.openNewUserDataConnection(listenKey, this::onMessage)
+                Thread.sleep(2000)
                 connectionToClose?.close()
                 Thread.sleep(72000000)
             }

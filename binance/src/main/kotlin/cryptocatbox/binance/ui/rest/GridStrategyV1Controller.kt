@@ -20,7 +20,13 @@ class GridStrategyV1Controller(
     fun createGridStrategy(@RequestBody request: CreateGridStrategyRequest): ResponseEntity<Boolean> {
         val pair = parsePairWithoutDelimiter(request.symbol)
         val gridSettings =
-            GridSettings(pair, request.stepMultiplier, request.sellOrderQuantity, request.buyOrderQuantity)
+            GridSettings(
+                pair,
+                request.stepMultiplier,
+                request.sellOrderQuantity,
+                request.buyOrderQuantity,
+                request.numOfOpenOrders
+            )
         gridStrategyService.startNew(gridSettings)
         return ResponseEntity.ok(true)
     }

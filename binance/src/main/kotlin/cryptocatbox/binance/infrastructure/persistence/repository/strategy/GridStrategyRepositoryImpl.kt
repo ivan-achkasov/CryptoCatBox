@@ -18,7 +18,8 @@ open class GridStrategyRepositoryImpl(private val gridStrategyDao: GridStrategyD
             strategy.settings.symbol.sell,
             strategy.settings.stepDistinction,
             strategy.settings.sellOrderQuantity,
-            strategy.settings.buyOrderQuantity
+            strategy.settings.buyOrderQuantity,
+            strategy.settings.numOfOpenOrders
         )
 
         val newEntity = gridStrategyDao.save(dbEntity)
@@ -30,7 +31,8 @@ open class GridStrategyRepositoryImpl(private val gridStrategyDao: GridStrategyD
                 CurrencyPair(newEntity.baseAsset, newEntity.quoteAsset),
                 newEntity.stepDistinction,
                 newEntity.sellOrderQuantity,
-                newEntity.buyOrderQuantity
+                newEntity.buyOrderQuantity,
+                newEntity.numOfOpenOrders
             )
         )
     }
@@ -45,7 +47,8 @@ open class GridStrategyRepositoryImpl(private val gridStrategyDao: GridStrategyD
                     CurrencyPair(it.baseAsset, it.quoteAsset),
                     it.stepDistinction,
                     it.sellOrderQuantity,
-                    it.buyOrderQuantity
+                    it.buyOrderQuantity,
+                    it.numOfOpenOrders
                 )
             )
         }

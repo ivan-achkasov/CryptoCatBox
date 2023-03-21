@@ -6,5 +6,6 @@ data class CreateGridStrategyRequest(
     val symbol: String,
     val stepMultiplier: BigDecimal,
     val sellOrderQuantity: BigDecimal,
-    val buyOrderQuantity: BigDecimal
+    val buyOrderQuantity: BigDecimal,
+    val numOfOpenOrders: Int
 )

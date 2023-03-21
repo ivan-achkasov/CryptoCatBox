@@ -7,5 +7,6 @@ data class GridSettings(
     val symbol: CurrencyPair,
     val stepDistinction: BigDecimal,
     val sellOrderQuantity: BigDecimal,
-    val buyOrderQuantity: BigDecimal
+    val buyOrderQuantity: BigDecimal,
+    val numOfOpenOrders: Int
 )

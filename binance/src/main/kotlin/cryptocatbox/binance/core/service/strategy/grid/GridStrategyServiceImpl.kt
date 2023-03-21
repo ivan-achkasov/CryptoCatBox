@@ -21,10 +21,6 @@ class GridStrategyServiceImpl(
     private val orderRepository: GridStrategyOrderRepository
 ) : GridStrategyService {
 
-    companion object {
-        private const val NUM_OF_ORDERS = 20
-    }
-
     override fun startNew(settings: GridSettings) {
         val pairCurrentPrice = futuresService.getMarkPrice(settings.symbol)
 
@@ -79,7 +75,7 @@ class GridStrategyServiceImpl(
 
     private fun placeLeadOffBuyOrders(startPrice: BigDecimal, strategy: GridStrategy) {
         var lastPrice = startPrice
-        for (i in 0 until NUM_OF_ORDERS / 2) {
+        for (i in 0 until strategy.settings.numOfOpenOrders / 2) {
             lastPrice = GridStrategyUtils.getNextBuyOrderPrice(lastPrice, strategy.settings)
             placeOrder(lastPrice, OrderSide.BUY, strategy)
         }
@@ -87,7 +83,7 @@ class GridStrategyServiceImpl(
 
     private fun placeLeadOffSellOrders(startPrice: BigDecimal, strategy: GridStrategy) {
         var lastPrice = startPrice
-        for (i in 0 until NUM_OF_ORDERS / 2) {
+        for (i in 0 until strategy.settings.numOfOpenOrders / 2) {
             lastPrice = GridStrategyUtils.getNextSellOrderPrice(lastPrice, strategy.settings)
             placeOrder(lastPrice, OrderSide.SELL, strategy)
         }

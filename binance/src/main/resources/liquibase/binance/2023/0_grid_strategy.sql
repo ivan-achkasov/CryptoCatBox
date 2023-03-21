@@ -17,6 +17,7 @@ CREATE TABLE binance.grid_strategy
     step_distinction    numeric(20, 10)   NOT NULL,
     sell_order_quantity currency_quantity NOT NULL,
     buy_order_quantity  currency_quantity NOT NULL,
+    num_of_open_orders  smallint          NOT NULL,
     created_at          TIMESTAMP         NOT NULL DEFAULT now()
 );
 

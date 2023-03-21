@@ -14,5 +14,6 @@ data class GridStrategyDbEntity(
     val quoteAsset: Currency,
     val stepDistinction: BigDecimal,
     val sellOrderQuantity: BigDecimal,
-    val buyOrderQuantity: BigDecimal
+    val buyOrderQuantity: BigDecimal,
+    val numOfOpenOrders: Int
 )

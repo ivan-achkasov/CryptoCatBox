@@ -23,7 +23,7 @@
         <property name="MAIN-LOG-FILE-PATTERN" value="${BASE-DIR}/${APP-NAME}.%d{yyyy-MM-dd}.%i.log.gz"/>
 
         <appender name="MAIN-LOG-FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>${MAIN_LOG_FILE}</file>
+            <file>${MAIN-LOG-FILE}</file>
 
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
                 <fileNamePattern>${MAIN-LOG-FILE-PATTERN}</fileNamePattern>

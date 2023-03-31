@@ -1,0 +1,45 @@
+<configuration>
+
+
+    <property name="LOG_PATTERN"
+              value="%date{yyyy-MM-dd HH:mm:ss.SSS} | %level | %thread | %logger{10} - %.-1028msg%n"/>
+
+    <springProfile name="local">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!local">
+        <property name="BASE-DIR" value="/logs/cat-box"/>
+        <property name="APP-NAME" value="main-api"/>
+        <property name="MAIN-LOG-FILE" value="${BASE-DIR}/${APP-NAME}.log"/>
+        <property name="MAIN-LOG-FILE-PATTERN" value="${BASE-DIR}/${APP-NAME}.%d{yyyy-MM-dd}.%i.log.gz"/>
+
+        <appender name="MAIN-LOG-FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${MAIN_LOG_FILE}</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${MAIN-LOG-FILE-PATTERN}</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+                <totalSizeCap>1GB</totalSizeCap>
+                <maxHistory>60</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="MAIN-LOG-FILE-ROLLING"/>
+        </root>
+    </springProfile>
+
+</configuration>

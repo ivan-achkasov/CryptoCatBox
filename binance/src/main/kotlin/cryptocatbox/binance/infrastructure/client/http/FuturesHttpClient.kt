@@ -160,7 +160,7 @@ class FuturesHttpClient(
     }
 
     private fun logRequest(reqId: Long, url: String, method: HttpMethod) {
-        logger().info("Sending request to binance features API. Request id: {}. URL: [{}]:{}", reqId, method, url)
+        logger().info("Sending request to binance features API. Request id: {}. URL: [{}]{}", reqId, method, url)
     }
 
     private fun <T> logResponse(reqId: Long, response: ResponseEntity<T>?) {

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: main-api-service
+spec:
+  selector:
+    matchLabels:
+      app: main-api-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: main-api-service
+    spec:
+      containers:
+        - name: main-api-server
+          image: registry.digitalocean.com/catbox-registry/main-api-service:latest
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: main-api-configs
+          ports:
+            - containerPort: 8080
+              protocol: TCP

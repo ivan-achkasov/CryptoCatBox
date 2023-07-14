@@ -10,7 +10,6 @@ import cryptocatbox.binance.core.model.strategy.GridStrategyUtils
 import cryptocatbox.binance.core.service.order.BinanceFuturesService
 import cryptocatbox.binance.infrastructure.persistence.repository.strategy.GridStrategyOrderRepository
 import cryptocatbox.binance.infrastructure.persistence.repository.strategy.GridStrategyRepository
-import cryptocatbox.common.core.BigDecimalUtils
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -50,33 +49,33 @@ class GridStrategyServiceImpl(
     }
 
     private fun placeNewLowerSellOrderBasedOnFilled(filledOrder: FuturesLimitOrder, strategy: GridStrategy) {
-        val lowerSellOrder = orderRepository.findLowerOpenSellOrderForStrategy(strategy.id)
-        val sellPrice = BigDecimalUtils.avg(filledOrder.price, lowerSellOrder!!.order.price)
+        val sellPrice = GridStrategyUtils.getPrevBuyOrderPrice(filledOrder.price, strategy.settings.stepDistinction)
         placeOrder(sellPrice, OrderSide.SELL, strategy)
     }
 
     private fun placeNewLowerBuyOrder(strategy: GridStrategy) {
         val lowerBuyOrder = orderRepository.findLowerOpenBuyOrderForStrategy(strategy.id)
-        val buyPrice = GridStrategyUtils.getNextBuyOrderPrice(lowerBuyOrder!!.order.price, strategy.settings)
+        val buyPrice =
+            GridStrategyUtils.getNextBuyOrderPrice(lowerBuyOrder!!.order.price, strategy.settings.stepDistinction)
         placeOrder(buyPrice, OrderSide.BUY, strategy)
     }
 
     private fun placeNewHigherBuyOrderBasedOnFilled(filledOrder: FuturesLimitOrder, strategy: GridStrategy) {
-        val higherBuyOrder = orderRepository.findHigherOpenBuyOrderForStrategy(strategy.id)
-        val buyPrice = BigDecimalUtils.avg(filledOrder.price, higherBuyOrder!!.order.price)
+        val buyPrice = GridStrategyUtils.getPrevSellOrderPrice(filledOrder.price, strategy.settings.stepDistinction)
         placeOrder(buyPrice, OrderSide.BUY, strategy)
     }
 
     private fun placeNewHigherSellOrder(strategy: GridStrategy) {
         val higherSellOrder = orderRepository.findHigherOpenSellOrderForStrategy(strategy.id)
-        val sellPrice = GridStrategyUtils.getNextSellOrderPrice(higherSellOrder!!.order.price, strategy.settings)
+        val sellPrice =
+            GridStrategyUtils.getNextSellOrderPrice(higherSellOrder!!.order.price, strategy.settings.stepDistinction)
         placeOrder(sellPrice, OrderSide.SELL, strategy)
     }
 
     private fun placeLeadOffBuyOrders(startPrice: BigDecimal, strategy: GridStrategy) {
         var lastPrice = startPrice
         for (i in 0 until strategy.settings.numOfOpenOrders / 2) {
-            lastPrice = GridStrategyUtils.getNextBuyOrderPrice(lastPrice, strategy.settings)
+            lastPrice = GridStrategyUtils.getNextBuyOrderPrice(lastPrice, strategy.settings.stepDistinction)
             placeOrder(lastPrice, OrderSide.BUY, strategy)
         }
     }
@@ -84,7 +83,7 @@ class GridStrategyServiceImpl(
     private fun placeLeadOffSellOrders(startPrice: BigDecimal, strategy: GridStrategy) {
         var lastPrice = startPrice
         for (i in 0 until strategy.settings.numOfOpenOrders / 2) {
-            lastPrice = GridStrategyUtils.getNextSellOrderPrice(lastPrice, strategy.settings)
+            lastPrice = GridStrategyUtils.getNextSellOrderPrice(lastPrice, strategy.settings.stepDistinction)
             placeOrder(lastPrice, OrderSide.SELL, strategy)
         }
     }

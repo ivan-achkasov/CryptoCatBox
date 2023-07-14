@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    $(document).ready(function () {
+
+        $("#submit").on('click', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'http://api.catbox.achkasov.me/binance/v1/grid-strategy',
+                type: "POST",
+                crossDomain: true,
+                contentType: "application/json",
+                dataType: 'json',
+                data: JSON.stringify($("#form").serializeObject()),
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        });
+    });
+</script>
+<body>
+
+<h2>HTML Form</h2>
+
+<form id="form">
+    <label for="symbol">Symbol:</label><br>
+    <input type="text" id="symbol" name="symbol">
+    <br>
+
+    <label for="stepMultiplier">Step multiplier</label><br>
+    <input type="text" id="stepMultiplier" name="stepMultiplier">
+    <br>
+
+    <label for="sellOrderQuantity">Sell order quantity:</label><br>
+    <input type="text" id="sellOrderQuantity" name="sellOrderQuantity">
+    <br>
+
+    <label for="buyOrderQuantity">Buy order quantity:</label><br>
+    <input type="text" id="buyOrderQuantity" name="buyOrderQuantity">
+    <br>
+
+    <label for="numOfOpenOrders">Num of open orders:</label><br>
+    <input type="text" id="numOfOpenOrders" name="numOfOpenOrders">
+    <br>
+
+    <br>
+    <input id="submit" value="Submit">
+</form>
+
+</body>
+</html>

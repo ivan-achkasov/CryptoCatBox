@@ -1,0 +1,80 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: knote
+  namespace: default
+  uid: f273ae30-1403-46f0-ad08-7863eeab300b
+  resourceVersion: '1870347'
+  creationTimestamp: '2023-05-20T14:29:58Z'
+  annotations:
+    kubernetes.digitalocean.com/load-balancer-id: 9c7440df-9cb9-474b-8e18-c652d8895188
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+  managedFields:
+    - manager: kubectl-replace
+      operation: Update
+      apiVersion: v1
+      time: '2023-05-20T14:29:58Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:allocateLoadBalancerNodePorts: {}
+          f:externalTrafficPolicy: {}
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":80,"protocol":"TCP"}:
+              .: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+    - manager: digitalocean-cloud-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2023-05-25T23:02:02Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubernetes.digitalocean.com/load-balancer-id: {}
+    - manager: digitalocean-cloud-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2023-05-25T23:04:30Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:finalizers:
+            .: {}
+            v:"service.kubernetes.io/load-balancer-cleanup": {}
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      subresource: status
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 31844
+  selector:
+    app: main-api-service
+  clusterIP: 10.245.241.81
+  clusterIPs:
+    - 10.245.241.81
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  allocateLoadBalancerNodePorts: true
+  internalTrafficPolicy: Cluster
+status:
+  loadBalancer:
+    ingress:
+      - ip: 138.68.125.93
